@@ -4,8 +4,8 @@
 
 To use: 
 - Set the host address near the top to your server. `const host = "127.0.0.1:1234`
+- Build using `go build main.go`
 - Start listening on the server using `netcat -l -p 8080`
-
 
 Example output on target
 ```
