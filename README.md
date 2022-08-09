@@ -7,7 +7,7 @@ To use:
 - Build using `go build main.go`
 - Start listening on the server using `netcat -l -p 8080`
 
-Example output on target
+Example debug output
 ```
 github.com/orf1/reverse-shell-go
 Attempting to establish tcp connection with server
