@@ -10,12 +10,12 @@ To use:
 Example debug output
 ```
 github.com/orf1/reverse-shell-go
-Attempting to establish tcp connection with server
+attempting to establish tcp connection with server
 dial tcp 127.0.0.1:8080: connect: connection refused
-Attempting to establish tcp connection with server
-Connection established
-Detecting operating system
-Detected mac or linux, using /bin/sh
+attempting to establish tcp connection with server
+connection established
+detecting operating system
+detected mac or linux, using /bin/sh
 binding standard interfaces to connection
 shell opened
 ```
